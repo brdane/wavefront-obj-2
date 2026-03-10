@@ -3,7 +3,7 @@ An unofficial update to the existing Wavefront OBJ 3D-model file format.
 
 ## Overview
 
-Wavefron OBJ 2.0 adds animation support, and has future plans to include texture data inside the file.
+Wavefront OBJ 2.0 adds animation support, and has future plans to include texture data inside the file.
 
 ## Key Features
 
