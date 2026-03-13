@@ -1,4 +1,4 @@
-# wavefront-obj-2
+# wavefront-obj-2 (.AOBJ)
 An unofficial update to the existing Wavefront OBJ 3D-model file format.
 
 ## Overview
@@ -7,11 +7,10 @@ Wavefront OBJ 2.0 adds animation support, and has future plans to include textur
 
 ## Key Features
 
-- **Backward Compatible**: Standard OBJ parsers ignore animation keywords
-- **Sparse Updates**: Only specify vertices that actually move
+- **Backward Compatible**: Use an AOBJ in a traditional OBJ-supporting  software, it will use the format as normal.
 - **Multiple Animations**: Support for multiple named animation sequences per file
-- **Keyframe-Based**: Define keyframes with automatic linear interpolation
 - **Simple Syntax**: Minimal new keywords that follow OBJ conventions
+- **Binary Version Available**: Export your AOBJ file in binary, instead of human-readable text, for faster loadering and lighter file-size.
 
 ## Format Specification
 
@@ -27,15 +26,13 @@ Declares a new animation sequence.
 anim "Walk Cycle" 30
 ```
 
-#### `frame <number>`
+#### `frame`
 Declares a keyframe in the current animation.
 
-- **number**: Frame number (integer, starts at 0)
-
 ```
-frame 0
-frame 10
-frame 25
+frame
+..
+..
 ```
 
 #### `vdelta <index> <dx> <dy> <dz>`
@@ -58,30 +55,12 @@ All `vdelta` values are **cumulative** - they represent the total offset from ea
 ```
 v 0 0 0          # Base position
 
-frame 0
+frame
 vdelta 1  1.0  0.0  0.0    # Vertex at (1, 0, 0)
 
-frame 10
+frame
 vdelta 1  3.0  0.0  0.0    # Vertex at (3, 0, 0), NOT (4, 0, 0)
 ```
-
-### Interpolation
-Frames between defined keyframes are **linearly interpolated**.
-
-**Example:**
-```
-frame 0
-vdelta 1  0.0  0.0  0.0    # Position: (0, 0, 0)
-
-frame 10
-vdelta 1  10.0  0.0  0.0   # Position: (10, 0, 0)
-
-# Frame 5 will automatically interpolate to (5, 0, 0)
-# Frame 7 will automatically interpolate to (7, 0, 0)
-```
-
-### Unspecified Vertices
-Vertices not mentioned in a `vdelta` statement remain at their current position (no movement).
 
 ## Complete Example
 
@@ -104,14 +83,14 @@ f  3  5  4
 # First animation: Translate entire pyramid
 anim "Move Right" 30
 
-frame 0
+frame 
 vdelta 1  2.0  2.0  2.0
 vdelta 2  3.0  2.0  2.0
 vdelta 3  3.0  3.0  2.0
 vdelta 4  2.0  3.0  2.0
 vdelta 5  2.5  2.5  3.6
 
-frame 30
+frame
 vdelta 1  5.0  2.0  2.0
 vdelta 2  6.0  2.0  2.0
 vdelta 3  6.0  3.0  2.0
@@ -121,13 +100,13 @@ vdelta 5  5.5  2.5  3.6
 # Second animation: Bounce
 anim "Bounce" 60
 
-frame 0
+frame
 vdelta 5  0.0  0.0  0.0
 
-frame 15
+frame
 vdelta 5  0.0  0.0  2.0
 
-frame 30
+frame
 vdelta 5  0.0  0.0  0.0
 ```
 
@@ -153,35 +132,18 @@ A complete animated OBJ file follows this structure:
 Multiple animations can be defined sequentially. Each `anim` keyword starts a new animation and implicitly ends the previous one.
 
 ```
-anim "Walk" 30
-frame 0
+anim Walk 30
+frame
 vdelta 1  0.0  0.0  0.0
-frame 10
+frame
 vdelta 1  1.0  0.0  0.0
 
-anim "Run" 60
-frame 0
+anim Run 60
+frame
 vdelta 1  0.0  0.0  0.0
-frame 5
+frame
 vdelta 1  2.0  0.0  0.0
 ```
-
-## Best Practices
-
-### Keyframe Placement
-- Only define keyframes where significant changes occur
-- Let linear interpolation handle smooth transitions
-- More keyframes = more precise control but larger files
-
-### Performance
-- Specify only vertices that actually move in each frame
-- Group related vertex movements in the same frame
-- Consider vertex count when designing complex animations
-
-### Organization
-- Use descriptive animation names
-- Keep frame rates consistent within similar animations
-- Comment your keyframes for complex sequences
 
 ## Compatibility
 
@@ -230,4 +192,4 @@ This format extension is released into the public domain. Implementers are free 
 
 ---
 
-*For questions, suggestions, or to report issues with this specification, please contact the format maintainer.*
+*For questions, suggestions, or to report issues with this specification, please contact me at brdane@gmail.com.*
