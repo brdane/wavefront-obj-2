@@ -7,10 +7,9 @@ Wavefront OBJ 2.0 adds animation support, and has future plans to include textur
 
 ## Key Features
 
-- **Backward Compatible**: Use an AOBJ in a traditional OBJ-supporting  software, it will use the format as normal.
-- **Multiple Animations**: Support for multiple named animation sequences per file
-- **Simple Syntax**: Minimal new keywords that follow OBJ conventions
-- **Binary Version Available**: Export your AOBJ file in binary, instead of human-readable text, for faster loadering and lighter file-size.
+- **Backward Compatible**: Use the human-readable AOBJ format in any traditional OBJ-supporting software, with no issue or conflict.
+- **Multiple Animations**: Support for multiple named animation sequences per file, which can be defined in Blender using the above add-on.
+- **Binary Version Available**: Export your AOBJ data in a binary format for faster processing and lighter file-size, instead of human-readable text. (Human-readable version will be available soon)
 
 ## Format Specification
 
@@ -188,7 +187,7 @@ This format extension is released into the public domain. Implementers are free 
 ## Version
 
 **Specification Version**: 1.0  
-**Last Updated**: 2026
+**Last Updated**: May 24th, 2026
 
 ---
 
